@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Weather = (props) => {
-
   const Section = styled.section`
   width: 100%
   height: 100%
@@ -21,12 +20,13 @@ const Info = styled.p`
   return (
     <div>
       {props.name && props.city && <h3><em>You can expect {props.name} today in {props.city}, {props.state}.</em></h3>}
+
       <Section>
         {props.date && <Info>Date: {props.date}</Info>}
         {props.temp && <Info>Temperature: {props.temp}</Info>}
         {props.max && <Info>High: {props.max}</Info>}
         {props.min && <Info>Low: {props.min}</Info>}
-    </Section>
+      </Section>
     </div>
   )
 }
