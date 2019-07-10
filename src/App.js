@@ -31,7 +31,6 @@ const Button = styled.button `
   }
 `
 
-
 class App extends React.Component {
   state = {
     city: '',
@@ -44,7 +43,6 @@ class App extends React.Component {
     weather_state_name: '',
     type: true
   }
-
 
   getWeather = (e, city) => {
     e.preventDefault();
@@ -63,34 +61,46 @@ class App extends React.Component {
         let city = res.data.title;
         let state = res.data.parent.title;
 
-        this.setState({ city: city, state: state, applicable_date, max_temp: max_temp.toFixed(1), min_temp: min_temp.toFixed(1), the_temp: the_temp.toFixed(1), weather_state_name: weather_state_name.toLowerCase(), weather_state_abbr
+        this.setState({
+          city: city,
+          state: state,
+          max_temp: max_temp.toFixed(1),
+          min_temp: min_temp.toFixed(1),
+          the_temp: the_temp.toFixed(1),
+          weather_state_name: weather_state_name.toLowerCase(),
+          weather_state_abbr,
+          applicable_date
         })
       })
   }
 
+  convertToF = (degree) => (degree * 9/5 + 32).toFixed(1);
+
+  convertToC = (degree) => ((degree - 32) * 5/9).toFixed(1);
+
+  changeTemps = (temp, max, min) => {
+    this.setState({
+      the_temp: temp,
+      max_temp: max,
+      min_temp: min,
+      type: !this.state.type
+    });
+  };
 
   handleClick = () => {
-    const changeTemps = (temp, max, min) => this.setState({the_temp: temp, max_temp: max, min_temp: min, type: !this.state.type})
+    const {type, max_temp, min_temp, the_temp } = this.state;
+    const {changeTemps, convertToC, convertToF } = this;
 
-    const convertToF = (degree) => {
-      return (degree * 9/5 + 32).toFixed(1);
-    }
-
-    const convertToC = (degree) => {
-      return ((degree - 32) * 5/9).toFixed(1);
-    }
-
-    if (this.state.type) {
-      changeTemps(convertToF(this.state.the_temp), convertToF(this.state.max_temp), convertToF(this.state.min_temp))
+    if (type) {
+      changeTemps(convertToF(the_temp), convertToF(max_temp), convertToF(min_temp))
     } else {
-      changeTemps(convertToC(this.state.the_temp), convertToC(this.state.max_temp), convertToC(this.state.min_temp))
+      changeTemps(convertToC(the_temp), convertToC(max_temp), convertToC(min_temp))
     }
   }
 
   render() {
-    let { type, city, state, applicable_date, max_temp, min_temp, the_temp, weather_state_abbr, weather_state_name} = this.state;
-
-    let {getWeather, handleClick } = this;
+    const { type, city, state, applicable_date, max_temp, min_temp, the_temp, weather_state_abbr, weather_state_name} = this.state;
+    const {getWeather, handleClick } = this;
 
     return (
       <Wrapper>
@@ -105,8 +115,8 @@ class App extends React.Component {
           temp={the_temp}
           abbr={weather_state_abbr}
           name={weather_state_name}
-          />
-          <Button onClick={handleClick}> Change to {type ? ('Celcius ') : ('Fahrenheit ')}</Button>
+        />
+        <Button onClick={handleClick}> Change to {type ? ('Celcius ') : ('Fahrenheit ')}</Button>
       </Wrapper>
     )
   }
