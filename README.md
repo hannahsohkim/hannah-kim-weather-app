@@ -1,18 +1,18 @@
 # Weather App
 
 ### Description
-A React application that interacts with the OpenWeather API. 
+A React application that interacts with the MetaWeather API. 
 
 ### How to interact with the app
-Type in a city and country to see the weather data displayed for the current day. 
+Type in a city to see the weather data displayed for the current day. 
 
 ### Technologies used 
 - Javascript
 - React.js 
 - Axios
-- Material UI
+- Styled Components
 - Heroku 
-- OpenWeather API 
+- MetaWeather API 
 
 ### Live link: 
 // To be added // 
