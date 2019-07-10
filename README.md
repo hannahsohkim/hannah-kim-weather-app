@@ -1,5 +1,8 @@
 # Weather App
 
+### Live Demo: 
+https://hannah-weather-app.herokuapp.com/
+
 ### Description
 A React application that interacts with the MetaWeather API. 
 
@@ -14,6 +17,5 @@ Type in a city to see the weather data displayed for the current day.
 - Heroku 
 - MetaWeather API 
 
-### Live link: 
-// To be added // 
+
 
