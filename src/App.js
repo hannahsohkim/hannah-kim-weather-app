@@ -23,7 +23,6 @@ const Button = styled.button `
   padding: 6px;
   cursor: pointer;
   transition: all 0.5s;
-
   &:hover {
     border: 2px solid #3939D9
   }

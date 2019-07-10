@@ -21,6 +21,8 @@ const Button = styled.button`
 const Input = styled.input`
   height: 24px;
   border-radius: 4px;
+  padding-left: 5px;
+  margin-right: 3px;
   &:focus {
     outline: none !important;
     border: 3px solid #7979E1
