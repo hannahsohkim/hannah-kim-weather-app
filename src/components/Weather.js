@@ -12,6 +12,7 @@ const Weather = (props) => {
 const Info = styled.p`
   display: inline-block;
   margin: 20px;
+  padding: 0px 8px 0px 8px;
   background-color: white;
   border-radius: 4px;
   border: 1px solid #D9D9E1;

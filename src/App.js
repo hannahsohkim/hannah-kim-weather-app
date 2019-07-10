@@ -18,11 +18,14 @@ const Wrapper = styled.div`
 
 const Button = styled.button `
   border-radius: 4px;
-  border-color: #7979E1;
+  border: 2px solid #7979E1;
   margin: 10px;
   padding: 6px;
+  cursor: pointer;
+  transition: all 0.5s;
+
   &:hover {
-    border-color: #3939D9
+    border: 2px solid #3939D9
   }
   &:focus {
     outline: none !important

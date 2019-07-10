@@ -3,14 +3,14 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   background-color: #7979E1;
+  color: white;
   border: none;
   border-radius: 4px;
-  color: white;
-  padding: 7px;
+  padding: 8px;
+  margin: 5px;
   width: 160px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px;
   &:hover {
     background-color: #3939D9
   }
@@ -19,12 +19,13 @@ const Button = styled.button`
   }
 `
 const Input = styled.input`
-  height: 23px;
+  height: 24px;
   border-radius: 4px;
   &:focus {
     outline: none !important;
     border: 3px solid #7979E1
   }
+
 `
 
 class Form extends React.Component {
