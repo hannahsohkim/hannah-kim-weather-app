@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
+  font-size: 15px;
   background-color: #7979E1;
   color: white;
   border: none;
@@ -19,6 +20,7 @@ const Button = styled.button`
   }
 `
 const Input = styled.input`
+  font-size: 15px;
   height: 24px;
   width: 150px;
   border-radius: 4px;
@@ -58,7 +60,7 @@ class Form extends React.Component {
       <Button
         onClick={this.handleSubmit}
         type="submit">
-        GET WEATHER
+        <strong>GET WEATHER</strong>
       </Button>
     </form>
     )

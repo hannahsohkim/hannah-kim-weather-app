@@ -15,6 +15,7 @@ const Info = styled.p`
   background-color: white;
   border-radius: 4px;
   border: 1px solid #D9D9E1;
+  font-family: Avenir
 `
 
   return (

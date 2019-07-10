@@ -17,6 +17,7 @@ const Wrapper = styled.div`
 `
 
 const Button = styled.button `
+  font-size: 14px;
   border-radius: 4px;
   border: 2px solid #7979E1;
   margin: 10px;
