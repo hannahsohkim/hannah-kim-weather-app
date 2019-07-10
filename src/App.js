@@ -44,12 +44,11 @@ class App extends React.Component {
   }
 
 
-  getWeather = (e) => {
+  getWeather = (e, city) => {
     e.preventDefault();
 
-    const query = e.target.elements.city.value;
     const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-    const locationUrl =  `https://www.metaweather.com/api/location/search/?query=${query}`;
+    const locationUrl =  `https://www.metaweather.com/api/location/search/?query=${city}`;
 
     axios.get(proxyUrl + locationUrl)
       .then(res => {
@@ -81,10 +80,7 @@ class App extends React.Component {
 
     if (this.state.type) {
       changeTemps(convertToF(this.state.the_temp), convertToF(this.state.max_temp), convertToF(this.state.min_temp))
-
-        console.log(this.state.temp, 'temp')
-    }
-    else {
+    } else {
       changeTemps(convertToC(this.state.the_temp), convertToC(this.state.max_temp), convertToC(this.state.min_temp))
     }
   }
