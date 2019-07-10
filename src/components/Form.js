@@ -27,13 +27,40 @@ const Input = styled.input`
   }
 `
 
-const Form = (props) => {
-  return(
-    <form onSubmit={props.getWeather}>
-      <Input type="text" name="city" placeholder="City..."/>
-      <Button type="submit">GET WEATHER</Button>
+class Form extends React.Component {
+  state = {
+    city: ''
+  }
+
+  handleChange = (e) => {
+    this.setState({city: e.target.value})
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.getWeather(e, this.state.city);
+    this.setState({city: ''})
+  }
+
+  render () {
+    return(
+    <form >
+      <Input
+        type="text"
+        placeholder="City..."
+        onChange={this.handleChange}
+        value={this.state.city}
+      />
+      <Button
+        onClick={this.handleSubmit}
+        type="submit">
+        GET WEATHER
+      </Button>
     </form>
-  )
+    )
+  }
 }
+
+
 
 export default Form;
