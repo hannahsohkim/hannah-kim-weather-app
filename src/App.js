@@ -117,7 +117,7 @@ class App extends React.Component {
           abbr={weather_state_abbr}
           name={weather_state_name}
         />
-        <Button onClick={handleClick}> Change to {type ? ('Celcius ') : ('Fahrenheit ')}</Button>
+        <Button onClick={handleClick}> Change to {type ? ('Fahrenheit ') : ('Celsius ')}</Button>
       </Wrapper>
     )
   }
