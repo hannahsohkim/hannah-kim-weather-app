@@ -37,8 +37,6 @@ class App extends React.Component {
     city: '',
     state: '',
     dates: [],
-    lows: [],
-    highs: [],
     temps: [],
     states: [],
     codes: [],
@@ -58,25 +56,24 @@ class App extends React.Component {
         return axios.get(proxyUrl + weatherUrl)
       })
       .then(res => {
-        console.log(res, 'res')
-        // let { applicable_date, max_temp, min_temp, the_temp, weather_state_name, weather_state_abbr } = res.data.consolidated_weather[0];
-
         let temps = [];
-        let highs = [];
-        let lows = [];
         let codes = [];
         let states = [];
         let dates = [];
 
         res.data.consolidated_weather.forEach((day) => {
-          temps.push((day.the_temp).toFixed(1));
-          highs.push((day.max_temp).toFixed(1));
-          lows.push((day.min_temp).toFixed(1));
+          temps.push(Math.round(day.the_temp));
           codes.push(day.weather_state_abbr)
           states.push(day.weather_state_name)
-          dates.push(day.applicable_date)
+          let date = new Date(day.applicable_date).toUTCString().slice(5, 11);
+          date = date.split(' ').reverse().join(' ');
+          dates.push(date)
         });
 
+        dates.length = temps.length = codes.length = states.length = 5;
+        // temps.length = 3;
+        // codes.length = 3;
+        // states.length = 3;
 
         let city = res.data.title;
         let state = res.data.parent.title;
@@ -84,8 +81,6 @@ class App extends React.Component {
         this.setState({
           city: city,
           state: state,
-          highs: highs,
-          lows: lows,
           temps: temps,
           codes: codes,
           states: states,
@@ -94,27 +89,25 @@ class App extends React.Component {
       })
   }
 
-  convertToF = (degree) => (degree * 9/5 + 32).toFixed(1);
+  convertToF = (degree) => (Math.round(degree * 9/5 + 32));
 
-  convertToC = (degree) => ((degree - 32) * 5/9).toFixed(1);
+  convertToC = (degree) => (Math.round((degree - 32) * 5/9));
 
-  changeTemps = (temp, max, min) => {
+  changeTemps = (temps) => {
     this.setState({
-      the_temp: temp,
-      max_temp: max,
-      min_temp: min,
+      temps: temps,
       type: !this.state.type
     });
   };
 
   handleClick = () => {
-    const {type, max_temp, min_temp, the_temp } = this.state;
+    const {type, temps } = this.state;
     const {changeTemps, convertToC, convertToF } = this;
 
     if (type) {
-      changeTemps(convertToF(the_temp), convertToF(max_temp), convertToF(min_temp))
+      changeTemps(temps.map(temp => convertToF(temp)))
     } else {
-      changeTemps(convertToC(the_temp), convertToC(max_temp), convertToC(min_temp))
+      changeTemps(temps.map(temp => convertToC(temp)))
     }
   }
 

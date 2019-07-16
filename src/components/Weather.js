@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const Weather = (props) => {
   const Section = styled.section`
   display: inline-block;
-  background-image: url("https://www.metaweather.com/static/img/weather/${props.abbr}.svg")
+  background-image: url("https://www.metaweather.com/static/img/weather/${props.abbr}.svg");
+  width: 200px;
 `
 
 const Info = styled.p`
@@ -18,15 +19,14 @@ const Info = styled.p`
 
   return (
     <div>
-      {props.name && props.city && <h3><em>You can expect {props.name} today in {props.city}, {props.state}.</em></h3>}
+      {props.state && props.city && <h3><em>{props.city}, {props.state}</em></h3>}
 
     {props.dates.map((day, i) => {
       return (
         <Section key={i}>
-          {day && <Info>Date: {day}</Info>}
-          {props.temps && <Info>Temperature: {props.temps[i]}</Info>}
-          {props.highs && <Info>High: {props.highs[i]}</Info>}
-          {props.lows && <Info>Low: {props.lows[i]}</Info>}
+          {day && <Info>{day}</Info>}
+          {props.temps && <Info>{props.temps[i]}°</Info>}
+          {props.states && <Info>{props.states[i]}</Info>}
       </Section>
       )
     })}
