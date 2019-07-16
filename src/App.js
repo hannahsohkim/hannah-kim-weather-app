@@ -36,12 +36,12 @@ class App extends React.Component {
   state = {
     city: '',
     state: '',
-    applicable_date: '',
-    min_temp: '',
-    max_temp: '',
-    the_temp: '',
-    weather_state_abbr: '',
-    weather_state_name: '',
+    dates: [],
+    lows: [],
+    highs: [],
+    temps: [],
+    states: [],
+    codes: [],
     type: true
   }
 
@@ -58,19 +58,38 @@ class App extends React.Component {
         return axios.get(proxyUrl + weatherUrl)
       })
       .then(res => {
-        let { applicable_date, max_temp, min_temp, the_temp, weather_state_name, weather_state_abbr } = res.data.consolidated_weather[0];
+        console.log(res, 'res')
+        // let { applicable_date, max_temp, min_temp, the_temp, weather_state_name, weather_state_abbr } = res.data.consolidated_weather[0];
+
+        let temps = [];
+        let highs = [];
+        let lows = [];
+        let codes = [];
+        let states = [];
+        let dates = [];
+
+        res.data.consolidated_weather.forEach((day) => {
+          temps.push((day.the_temp).toFixed(1));
+          highs.push((day.max_temp).toFixed(1));
+          lows.push((day.min_temp).toFixed(1));
+          codes.push(day.weather_state_abbr)
+          states.push(day.weather_state_name)
+          dates.push(day.applicable_date)
+        });
+
+
         let city = res.data.title;
         let state = res.data.parent.title;
 
         this.setState({
           city: city,
           state: state,
-          max_temp: max_temp.toFixed(1),
-          min_temp: min_temp.toFixed(1),
-          the_temp: the_temp.toFixed(1),
-          weather_state_name: weather_state_name.toLowerCase(),
-          weather_state_abbr,
-          applicable_date
+          highs: highs,
+          lows: lows,
+          temps: temps,
+          codes: codes,
+          states: states,
+          dates: dates
         })
       })
   }
@@ -100,7 +119,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { type, city, state, applicable_date, max_temp, min_temp, the_temp, weather_state_abbr, weather_state_name} = this.state;
+    const { type, city, state, dates, codes, states, temps, highs, lows} = this.state;
     const {getWeather, handleClick } = this;
 
     return (
@@ -110,12 +129,12 @@ class App extends React.Component {
         <Weather
           city={city}
           state={state}
-          date={applicable_date}
-          max={max_temp}
-          min={min_temp}
-          temp={the_temp}
-          abbr={weather_state_abbr}
-          name={weather_state_name}
+          dates={dates}
+          highs={highs}
+          lows={lows}
+          temps={temps}
+          codes={codes}
+          states={states}
         />
         <Button onClick={handleClick}> Change to {type ? ('Fahrenheit ') : ('Celsius ')}</Button>
       </Wrapper>
