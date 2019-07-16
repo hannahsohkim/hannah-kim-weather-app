@@ -3,14 +3,12 @@ import styled from 'styled-components';
 
 const Weather = (props) => {
   const Section = styled.section`
-  width: 100%
-  height: 100%
+  display: inline-block;
   background-image: url("https://www.metaweather.com/static/img/weather/${props.abbr}.svg")
 `
 
 const Info = styled.p`
-  display: inline-block;
-  margin: 20px;
+  margin: 10px;
   padding: 0px 8px 0px 8px;
   background-color: white;
   border-radius: 4px;
@@ -22,12 +20,17 @@ const Info = styled.p`
     <div>
       {props.name && props.city && <h3><em>You can expect {props.name} today in {props.city}, {props.state}.</em></h3>}
 
-      <Section>
-        {props.date && <Info>Date: {props.date}</Info>}
-        {props.temp && <Info>Temperature: {props.temp}</Info>}
-        {props.max && <Info>High: {props.max}</Info>}
-        {props.min && <Info>Low: {props.min}</Info>}
+    {props.dates.map((day, i) => {
+      return (
+        <Section key={i}>
+          {day && <Info>Date: {day}</Info>}
+          {props.temps && <Info>Temperature: {props.temps[i]}</Info>}
+          {props.highs && <Info>High: {props.highs[i]}</Info>}
+          {props.lows && <Info>Low: {props.lows[i]}</Info>}
       </Section>
+      )
+    })}
+
     </div>
   )
 }
