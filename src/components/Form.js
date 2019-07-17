@@ -30,7 +30,6 @@ const Input = styled.input`
     outline: none !important;
     border: 3px solid #7979E1
   }
-
 `
 
 class Form extends React.Component {
@@ -50,16 +49,14 @@ class Form extends React.Component {
 
   render () {
     return(
-    <form >
+    <form onSubmit={this.handleSubmit}>
       <Input
         type="text"
         placeholder="City..."
         onChange={this.handleChange}
         value={this.state.city}
       />
-      <Button
-        onClick={this.handleSubmit}
-        type="submit">
+      <Button>
         <strong>GET WEATHER</strong>
       </Button>
     </form>

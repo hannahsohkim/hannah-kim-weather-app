@@ -40,7 +40,8 @@ class App extends React.Component {
     temps: [],
     states: [],
     codes: [],
-    type: true
+    type: true,
+    style: {backgroundImage: `url("https://source.unsplash.com/random/?weather")`, backgroundSize: "cover"}
   }
 
   getWeather = (e, city) => {
@@ -56,6 +57,8 @@ class App extends React.Component {
         return axios.get(proxyUrl + weatherUrl)
       })
       .then(res => {
+        let city = res.data.title;
+        let state = res.data.parent.title;
         let temps = [];
         let codes = [];
         let states = [];
@@ -71,12 +74,6 @@ class App extends React.Component {
         });
 
         dates.length = temps.length = codes.length = states.length = 5;
-        // temps.length = 3;
-        // codes.length = 3;
-        // states.length = 3;
-
-        let city = res.data.title;
-        let state = res.data.parent.title;
 
         this.setState({
           city: city,
@@ -84,7 +81,8 @@ class App extends React.Component {
           temps: temps,
           codes: codes,
           states: states,
-          dates: dates
+          dates: dates,
+          style: {backgroundImage: `url("https://source.unsplash.com/random/?${city}")`, backgroundSize: "cover"}
         })
       })
   }
@@ -112,11 +110,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { type, city, state, dates, codes, states, temps, highs, lows} = this.state;
+    const { style, type, city, state, dates, codes, states, temps, highs, lows} = this.state;
     const {getWeather, handleClick } = this;
 
     return (
-      <Wrapper>
+      <Wrapper style={style}>
         <Header />
         <Form getWeather={getWeather}/>
         <Weather
